@@ -82,11 +82,12 @@ TMPDIR_BASE="${TMPDIR_BASE:-/tmp}"
 # Uses ANSI colors when stdout is a terminal.
 ###############################################################################
 
-if [ -t 1 ]; then
+FORCE_COLOR="${FORCE_COLOR:-0}"
+NO_COLOR="${NO_COLOR:-0}"
+
+if { [ -t 1 ] && [ "$NO_COLOR" != "1" ]; } || [ "$FORCE_COLOR" = "1" ]; then
   C_RESET='\033[0m'
   C_BOLD='\033[1m'
-  C_DIM='\033[2m'
-
   C_RED='\033[31m'
   C_GREEN='\033[32m'
   C_YELLOW='\033[33m'
@@ -96,8 +97,6 @@ if [ -t 1 ]; then
 else
   C_RESET=''
   C_BOLD=''
-  C_DIM=''
-
   C_RED=''
   C_GREEN=''
   C_YELLOW=''
